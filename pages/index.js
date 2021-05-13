@@ -1,60 +1,30 @@
 import React, { useState, useEffect } from 'react'
+import Head from 'next/head'
+import styles from '~/styles/Home.module.css'
+import { styled } from '@stitches/react'
 
-function HomePage() {
+import Loader from '~/components/Loader'
 
-    const [ firebase, setFirebase ] = useState(null)
+function Home() {
 
-    useEffect(() => {
-        setTimeout(async () => {
-            const { default: loadFirebase }  = await import('~/lib/firebase')
-            loadFirebase().then(firebase => setFirebase(firebase))
-        }, 3000)
-    }, [])
-
-    // set up auth state listener
-    useEffect(() => {
-        if(!firebase) return
-        firebase.auth().onAuthStateChanged((user) => {
-            console.log('User', user)
-        })
-    }, [firebase])
-
-    // set up collection state listener
-    useEffect(() => {
-        /*if(!firebase) return
-        firebase.firestore().collection('ingredients').onSnapshot(snap => {
-            let data = {}
-            snap.forEach((doc) => data[doc.id] = doc.data() )
-            console.log('New data snapshot', data)
-        })*/
-    }, [firebase])
-
-    // get data once
-    useEffect(() => {
-        if(!firebase) return
-        firebase.firestore().collection('ingredients').get().then(snap => {
-            let data = {}
-            snap.forEach((doc) => data[doc.id] = doc.data() )
-            console.log('Data snapshot', data)
-        }).catch(e => console.log(e))
-    }, [firebase])
-
-    const signIn = () => {
-        setFirebaseUserError('')
-        firebase.auth().signInWithEmailAndPassword('admin@spoton.no', pass)
-        .then(() => null)
-        .catch(e => console.log(e.message))
-    }
-
-    const signOut = () => firebase.auth().signOut()
-
-    // firebase.firestore().collection('cacheKeys').doc('persistorKey').set({ value: cacheKeys.persistorKey + 1}, { merge: true })
-
+    
     return(
-        <div>
-            <h1>Makro</h1>
+        <div className="container">
+            <div className="card">
+                <h1>Makro</h1>
+                <Button>Click</Button>
+                <Loader visible />
+            </div>
         </div>
     )
 }
   
-export default HomePage
+export default Home
+
+const Button = styled('button', {
+    backgroundColor: 'gainsboro',
+    borderRadius: '9999px',
+    fontSize: '13px',
+    padding: '10px 15px',
+    position: 'relative',
+})
