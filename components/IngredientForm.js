@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react'
 import { Row, Col } from '~/components/grid'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
+import { firestore } from '~/lib/firebase'
+import { toCamel } from '~/lib/helpers'
 
-export default function IngredientForm ({}) {
+export default function IngredientForm ({ onSaved, ingredient }) {
 
-    const [ data, setData ] = useState({
+    const [ data, setData ] = useState(ingredient || {
         name: '',
         makro: { carbs: 0, energy: 0, fat: 0, protein: 0, sugar: 0 },
         makroIn: '100',
@@ -15,6 +17,12 @@ export default function IngredientForm ({}) {
 
     const set = (key, val) => {
         setData({ ...data, [key]: val })
+    }
+
+    const submit = async () => {
+        const id = data.uid || toCamel(data.name)
+        await firestore.collection('ingredients').doc(id).set(data)
+        onSaved()
     }
 
     return(
@@ -56,7 +64,7 @@ export default function IngredientForm ({}) {
                     <Input type="number" placeholder="Sugar" theme="flat" value={data.makro.sugar} onChange={val => set('makro', {...data.makro, sugar: val})} />
                 </Col>
             </Row>
-            <Button style={{width:'100%'}}>Add</Button>
+            <Button style={{width:'100%'}} onClick={submit}>{data.uid ? 'Save changes' : 'Add'}</Button>
         </div>
     )
 }

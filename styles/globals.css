@@ -108,6 +108,10 @@ input[type="file"] {
     box-shadow: 0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06);
 }
 
+.bold {
+    font-weight: 700;
+}
+
 .card {
     background: white;
     border-radius: 12px;
@@ -133,6 +137,10 @@ i {
 
 .absolute {
     position: absolute;
+}
+
+.clickable {
+    cursor:pointer;
 }
 
 .center-y {

@@ -2,7 +2,7 @@ import { UserContext } from '~/lib/context'
 import { useEffect, useState, useCallback, useContext } from 'react'
 import debounce from 'lodash.debounce'
 
-import { auth, firestore } from '~/lib/firebase';
+import { auth, firestore } from '~/lib/firebase'
 import Loader from '~/components/Loader'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
