@@ -64,7 +64,8 @@ const Logo = styled('div', {
 
 const Component = styled('nav', {
     '.container': {
-        padding: '32px 0',
+        paddingTop: '32px',
+        paddingBottom: '32px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
