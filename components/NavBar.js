@@ -33,6 +33,11 @@ export default function NavBar({ }) {
                     {user &&
                         <>
                             <li>
+                                <Link href="/ingredients">
+                                    <a>Ingredients</a>
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/profile">
                                     <a>
                                         <img className="avatar" src={user.photoURL} />

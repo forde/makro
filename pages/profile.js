@@ -6,6 +6,7 @@ import { auth, firestore } from '~/lib/firebase';
 import Loader from '~/components/Loader'
 import Button from '~/components/Button'
 import Input from '~/components/Input'
+import { goTo } from '~/lib/helpers'
 
 export default function Profile() {
 
@@ -18,6 +19,7 @@ export default function Profile() {
 
     const signOut = async () => {
         await auth.signOut()
+        goTo('/')
     }
 
     const onSubmit = async () => {

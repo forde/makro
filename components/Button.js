@@ -9,7 +9,9 @@ const Component = styled('button', {
     backgroundColor: colors.purple,
     color: 'white',
     borderRadius: '12px',
-    fontSize: '17px',
-    padding: '10px 15px',
+    fontSize: '18px',
+    fontWeight: 'bold',
+    height: '54px',
+    padding: '15px 15px',
     position: 'relative',
 })

@@ -1,4 +1,5 @@
 import { styled } from '@stitches/react'
+import { useMemo } from 'react'
 
 const colNum = 12
 
@@ -15,17 +16,16 @@ export const Row = styled('div', {
     flexWrap: 'wrap',
 })
 
-const getWidth = (width, index) => {
+const getWidth = (width=0, index) => {
     const cols = Array.isArray(width) ? (width[index] || width) : width
     return { width: `calc(${trim2((100/colNum)*cols)}% - 16px)` }
 }
 
 export const Col = ({ width, children }) => {
 
-    const Column = styled('div', {
+    const Column = useMemo(() => styled('div', {
         marginLeft: `${trim2(colGap/2)}px`,
         marginRight: `${trim2(colGap/2)}px`,
-        border: '1px dotted red',
         ...getWidth(width, 0),
         marginBottom: '16px',
         '@media (min-width: 768px) and (max-width: 1024px)': {
@@ -34,7 +34,7 @@ export const Col = ({ width, children }) => {
         '@media(max-width: 767px)': {
             ...getWidth(width, 2)
         }
-    })
+    }), [])
 
     return <Column>{children}</Column>
 }

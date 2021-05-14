@@ -10,6 +10,7 @@ export default function Component({ value, onChange=()=>null, onEnter, className
                     onChange={e => onChange(e.target.value)}
                     className="shadow"
                     onKeyPress={e => (onEnter && e.key === 'Enter') ? onEnter() : null}
+                    onFocus={e => e.target.select()}
                     {...rest}
                 />
                 {onEnter &&
