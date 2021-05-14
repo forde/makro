@@ -38,7 +38,7 @@ export default function Ingredients() {
 
     return(
         <>
-            <div className="container">
+            <div className="container pb-48">
                 <Input
                     placeholder="Search"
                     onChange={setQuery}
@@ -50,8 +50,13 @@ export default function Ingredients() {
                         <div key={ing.uid} className="card mb-24 p-24">
                             <h3 className="title mb-8 bold">{ing.name}</h3>
                             <label>
-                                {Object.keys(ing.makro).map(key => <span key={key} className="mr-8">{key}: {ing.makro[key]}</span>)}
-                                <span>/ {ing.makroIn} {ing.makroInUnit}</span>
+                                <Det>Energy: {ing.macro.energy}g</Det>
+                                <Det>Fat: {ing.macro.fat}g</Det>
+                                <Det>Carbs: {ing.macro.carbs}g</Det>
+                                <Det>Sugar: {ing.macro.sugar}g</Det>
+                                <Det>Protein: {ing.macro.protein}g</Det>
+                                <Det>/</Det>
+                                <Det>{ing.macroIn} {ing.macroInDesc && `(${ing.macroInDesc})`}</Det>
                             </label>
                             <FiEdit
                                 onClick={() => {
@@ -77,3 +82,7 @@ export default function Ingredients() {
         </>
     )
 }
+
+const Det = styled('span', {
+    marginRight: '8px',
+})

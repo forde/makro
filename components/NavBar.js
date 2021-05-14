@@ -20,7 +20,7 @@ export default function NavBar({ }) {
                 <Link href="/">
                     <a>
                         <Logo>
-                            <i className="icon-l">🔥</i> Home
+                            <i className="icon-l">🔥</i> My macro
                         </Logo>
                     </a>
                 </Link>

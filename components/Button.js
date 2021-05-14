@@ -7,6 +7,7 @@ export default function Button({ children, ...rest }) {
 
 const Component = styled('button', {
     backgroundColor: colors.purple,
+    border: `3px solid ${colors.purple}`,
     color: 'white',
     borderRadius: '12px',
     fontSize: '18px',
@@ -14,4 +15,14 @@ const Component = styled('button', {
     height: '54px',
     padding: '15px 15px',
     position: 'relative',
+
+    variants: {
+        theme: {
+            tertiary: {
+                backgroundColor: 'white',
+                color: colors.text,
+                border: `3px solid ${colors.bg}`,
+            }
+        }
+    }
 })
