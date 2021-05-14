@@ -1,8 +1,8 @@
 import { styled, keyframes } from '@stitches/react'
 import { colors } from '~/styles'
 
-export default function Loader({ visible }) {
-    return visible ? <Component/> : null;
+export default function Loader({ visible, ...rest }) {
+    return visible ? <Component {...rest}/> : null
 }
 
 const spin = keyframes({
@@ -11,8 +11,8 @@ const spin = keyframes({
 });
 
 const Component = styled('div', {
-    border: `6px solid ${colors.bg}`, 
-    borderTop: `6px solid ${colors.blue}`, 
+    border: `6px solid ${colors.bg}`,
+    borderTop: `6px solid ${colors.purple}`,
     borderRadius: '50%',
     width: '30px',
     height: '30px',
