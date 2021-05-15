@@ -20,7 +20,7 @@ export default function NavBar({ }) {
                 <Link href="/">
                     <a>
                         <Logo>
-                            <i className="icon-l">🔥</i> My macro
+                            <i className="icon-l">🔥</i> Home
                         </Logo>
                     </a>
                 </Link>
@@ -38,7 +38,7 @@ export default function NavBar({ }) {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/profile">
+                                <Link href="/[username]" as={`/${username}`}>
                                     <a>
                                         <img className="avatar" src={user.photoURL} />
                                     </a>

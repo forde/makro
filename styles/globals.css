@@ -63,7 +63,7 @@ input {
     padding: 5px 10px;
 }
 
-label {
+label, .label {
     display: inline-block;
     font-size: 15px;
     font-weight: 700;
@@ -123,6 +123,10 @@ input[type="file"] {
     color: #df3b3b;
 }
 
+.purple {
+    color: #7E69FD;
+}
+
 i {
     font-size: 24px;
     line-height: 1;
@@ -146,6 +150,13 @@ i {
 .center-y {
     top: 50%;
     transform: translateY(-50%);
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .mb-8 { margin-bottom: 8px; }

@@ -2,13 +2,11 @@ import { UserContext } from '~/lib/context'
 import { useEffect, useState, useCallback, useContext } from 'react'
 import debounce from 'lodash.debounce'
 
-import { auth, firestore } from '~/lib/firebase'
+import { firestore } from '~/lib/firebase'
 import Loader from '~/components/Loader'
-import Button from '~/components/Button'
 import Input from '~/components/Input'
-import { goTo } from '~/lib/helpers'
 
-export default function Profile() {
+export default function UsernameForm() {
 
     const { user, username } = useContext(UserContext)
 
@@ -16,11 +14,6 @@ export default function Profile() {
     const [ isValid, setIsValid ] = useState(false)
     const [ loading, setLoading ] = useState(false)
     const [ error, setError ] = useState('')
-
-    const signOut = async () => {
-        await auth.signOut()
-        goTo('/')
-    }
 
     const onSubmit = async () => {
         setError('')
@@ -97,7 +90,6 @@ export default function Profile() {
                     </div>
                     <small className="pt-8 error">{error}</small>
                 </div>
-                <Button onClick={signOut}>Sign out</Button>
             </div>
         </>
     )

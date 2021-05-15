@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import styles from '~/styles/Home.module.css'
 import { styled } from '@stitches/react'
 import { FiEdit } from 'react-icons/fi'
 
@@ -50,11 +49,12 @@ export default function Ingredients() {
                         <div key={ing.uid} className="card mb-24 p-24">
                             <h3 className="title mb-8 bold">{ing.name}</h3>
                             <label>
-                                <Det>Energy: {ing.macro.energy}g</Det>
-                                <Det>Fat: {ing.macro.fat}g</Det>
-                                <Det>Carbs: {ing.macro.carbs}g</Det>
-                                <Det>Sugar: {ing.macro.sugar}g</Det>
-                                <Det>Protein: {ing.macro.protein}g</Det>
+                                <Det>{ing.macro.energy} Kcal</Det>
+                                <Det>|</Det>
+                                <Det>F: {ing.macro.fat}g</Det>
+                                <Det>C: {ing.macro.carbs}g</Det>
+                                <Det>P: {ing.macro.protein}g</Det>
+                                <Det>S: {ing.macro.sugar}g</Det>
                                 <Det>/</Det>
                                 <Det>{ing.macroIn} {ing.macroInDesc && `(${ing.macroInDesc})`}</Det>
                             </label>
