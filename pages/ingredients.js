@@ -9,6 +9,7 @@ import Button from '~/components/Button'
 import Input from '~/components/Input'
 import IngredientForm from '~/components/IngredientForm'
 import { firestore } from '~/lib/firebase'
+import IngredientMacro from '~/components/IngredientMacro'
 
 export default function Ingredients() {
 
@@ -48,22 +49,13 @@ export default function Ingredients() {
                     return(
                         <div key={ing.uid} className="card mb-24 p-24">
                             <h3 className="title mb-8 bold">{ing.name}</h3>
-                            <label>
-                                <Det>{ing.macro.energy} Kcal</Det>
-                                <Det>|</Det>
-                                <Det>F: {ing.macro.fat}g</Det>
-                                <Det>C: {ing.macro.carbs}g</Det>
-                                <Det>P: {ing.macro.protein}g</Det>
-                                <Det>S: {ing.macro.sugar}g</Det>
-                                <Det>/</Det>
-                                <Det>{ing.macroIn} {ing.macroInDesc && `(${ing.macroInDesc})`}</Det>
-                            </label>
+                            <IngredientMacro ingredient={ing} />
                             <FiEdit
                                 onClick={() => {
                                     setEditedIngredient(ing)
                                     setFormVisible(true)
                                 }}
-                                className="icon-l absolute center-y clickable"
+                                className="icon-m absolute center-y clickable"
                                 style={{right:'24px'}}
                             />
                         </div>
@@ -82,7 +74,3 @@ export default function Ingredients() {
         </>
     )
 }
-
-const Det = styled('span', {
-    marginRight: '8px',
-})

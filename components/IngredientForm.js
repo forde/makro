@@ -4,7 +4,7 @@ import { Row, Col } from '~/components/grid'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 import { firestore } from '~/lib/firebase'
-import { toCamel } from '~/lib/helpers'
+import kebabCase from 'lodash.kebabcase'
 
 export default function IngredientForm ({ onSaved, ingredient }) {
 
@@ -21,14 +21,14 @@ export default function IngredientForm ({ onSaved, ingredient }) {
     }
 
     const submit = async () => {
-        const id = data.uid || toCamel(data.name)
+        const id = data.uid || kebabCase(data.name)
         await firestore.collection('ingredients').doc(id).set(data)
-        onSaved()
+        onSaved({...data, uid: id})
     }
 
     const remove = async () => {
         await firestore.collection('ingredients').doc(data.uid).delete()
-        onSaved()
+        onSaved(data)
     }
 
     return(

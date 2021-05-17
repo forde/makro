@@ -4,10 +4,11 @@ import Button from '~/components/Button'
 import Metatags from '~/components/Metatags'
 import kebabCase from 'lodash.kebabcase'
 import Select from '~/components/Select'
-import { Row, Col } from '~/components/Grid'
+import { Row, Col } from '~/components/grid'
 import ReactMarkdown from 'react-markdown'
 import { styled } from '@stitches/react'
 import { colors } from '~/styles'
+import IngredientFinder from '/components/IngredientFinder'
 
 export default function NewRecepie({  }) {
 
@@ -24,7 +25,7 @@ export default function NewRecepie({  }) {
         <>
             <Metatags />
             <div className="container">
-                <Row className="mb-36">
+                <Row>
                     <Col width={[9, 8, 12]}>
                         <Input placeholder="Title" value={title} onChange={setTitle} />
                         <label className="pt-16 pl-16 block gray fw-400">{slug}</label>
@@ -39,7 +40,9 @@ export default function NewRecepie({  }) {
                     </Col>
                 </Row>
 
-                <Row className="mb-36">
+                <IngredientFinder className="mb-32" onIngredientSelected={ing => console.log(ing)}/>
+
+                <Row className="mb-32">
                     <Col width={[6,6,12]}>
                         <div className="card p-16 h-100">
                             <ContentInput placeholder="Content (markdown)" value={content} onChange={e => setContent(e.target.value)} />

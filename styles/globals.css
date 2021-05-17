@@ -80,6 +80,10 @@ code {
     overflow-x: scroll;
 }
 
+strong {
+    font-weight: 700;
+}
+
 button {
     border: none;
     cursor: pointer;
@@ -147,8 +151,13 @@ i {
     font-size: 24px;
     line-height: 1;
 }
+
 .icon-l {
     font-size: 32px;
+}
+
+.icon-m {
+    font-size: 24px;
 }
 
 .relative {
