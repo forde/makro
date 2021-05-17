@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react'
 import { colors } from '~/styles'
 
-export default function Component({ value, onChange=()=>null, onEnter, className, ...rest }) {
+export default function Component({ value, onChange=()=>null, suffix, onEnter, className, ...rest }) {
     return(
         <>
             <Wrapper className={className}>
@@ -13,6 +13,7 @@ export default function Component({ value, onChange=()=>null, onEnter, className
                     onFocus={e => e.target.select()}
                     {...rest}
                 />
+                {suffix && <span className="suffix">{suffix}</span>}
                 {onEnter &&
                     <svg width="34px" height="28px" viewBox="0 0 484.5 484.5" >
                         <polygon fill={colors.gray} points="433.5,114.75 433.5,216.75 96.9,216.75 188.7,124.95 153,89.25 0,242.25 153,395.25 188.7,359.55 96.9,267.75 484.5,267.75 484.5,114.75 "/>
@@ -30,7 +31,13 @@ const Wrapper = styled('div', {
         top: '52%',
         right: '16px',
         transform: 'translateY(-50%)'
-    }
+    },
+    '.suffix': {
+        position: 'absolute',
+        right: '16px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+    },
 })
 
 const Input = styled('input', {

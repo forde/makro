@@ -9,8 +9,6 @@ export default function Recepie(props) {
 
     const recepie = realtimeRecepie || props.recepie
 
-    console.log(recepie);
-
     return (
         <div className="container">
             <RecepieContent recepie={recepie} />
@@ -26,8 +24,8 @@ export async function getStaticProps({ params }) {
     let path
 
     if(userDoc) {
-        const recepieRef = userDoc.ref.collection('recepies').doc(slug)
-        recepie = docToJson(await recepieRef.get())
+        const recepieRef = userDoc.ref.collection('recipes').doc(slug)
+        recepie = await docToJson(await recepieRef.get())
         path = recepieRef.path
     }
 
@@ -39,7 +37,7 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
     // Improve my using Admin SDK to select empty docs
-    const snapshot = await firestore.collectionGroup('recepies').get()
+    const snapshot = await firestore.collectionGroup('recipes').get()
 
     const paths = snapshot.docs.map((doc) => {
         const { slug, username } = doc.data()

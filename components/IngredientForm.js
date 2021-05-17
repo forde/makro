@@ -77,7 +77,7 @@ export default function IngredientForm ({ onSaved, ingredient }) {
                 </Col>
             </Row>
             <Button style={{width:'100%'}} onClick={submit}>{data.uid ? 'Save changes' : 'Add'}</Button>
-            {data.uid && <Button style={{width:'100%', marginTop: '16px'}} theme="tertiary" onClick={remove}>Delete</Button>}
+            {data.uid && <Button style={{width:'100%', marginTop: '16px'}} theme="white" onClick={remove}>Delete</Button>}
         </div>
     )
 }

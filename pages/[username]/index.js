@@ -7,7 +7,7 @@ import Metatags from '~/components/Metatags'
 import { auth } from '~/lib/firebase'
 import { goTo } from '~/lib/helpers'
 
-export default function Profile({ user, recepies }) {
+export default function Profile({ user, recipes }) {
 
     const signOut = async () => {
         await auth.signOut()
@@ -22,7 +22,7 @@ export default function Profile({ user, recepies }) {
         <>
             <Metatags />
             <div className="container">
-                <RecepieFeed recepies={recepies} />
+                <RecepieFeed recipes={recipes} />
                 <Button onClick={signOut}>Sign out</Button>
             </div>
         </>
@@ -38,19 +38,19 @@ export async function getServerSideProps({ query }) {
 
     // JSON serializable data
     let user = null;
-    let recepies = null;
+    let recipes = null;
 
     if (userDoc) {
         user = userDoc.data();
-        const recepiesQuery = userDoc.ref
-            .collection('recepies')
+        const recipesQuery = userDoc.ref
+            .collection('recipes')
             .where('published', '==', true)
             .orderBy('createdAt', 'desc')
             .limit(5);
-        recepies = (await recepiesQuery.get()).docs.map(docToJson);
+        recipes = (await recipesQuery.get()).docs.map(docToJson)
     }
 
     return {
-        props: { user, recepies }, // will be passed to the page component as props
+        props: { user, recipes }, // will be passed to the page component as props
     }
 }

@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 export default function Metatags({
     title = 'Makro Cook Book',
-    description = 'Keto recepies for the rest of us',
+    description = 'Keto recipes for the rest of us',
     image = '',
 }) {
     return (

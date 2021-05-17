@@ -135,6 +135,10 @@ input[type="file"] {
     height:100%;
 }
 
+.w-100 {
+    width: 100%;
+}
+
 .error {
     color: #df3b3b;
 }
@@ -181,6 +185,18 @@ i {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.flex-center-y {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-center-y-row {
+    display: flex;
+    flex-direction: row;
     align-items: center;
 }
 

@@ -7,41 +7,41 @@ import { firestore, fromMillis, docToJson } from '~/lib/firebase'
 
 export default function Home(props) {
 
-    const [recepies, setRecepies] = useState(props.recepies)
+    const [recipes, setRecipes] = useState(props.recipes)
     const [loading, setLoading] = useState(false)
 
-    const [recepiesEnd, setRecepiesEnd] = useState(false)
+    const [recipesEnd, setRecipesEnd] = useState(false)
 
-    const getMoreRecepies = async () => {
+    const getMoreRecipes = async () => {
         setLoading(true)
-        const last = recepies[recepies.length - 1]
+        const last = recipes[recipes.length - 1]
 
         const cursor = typeof last.createdAt === 'number' ? fromMillis(last.createdAt) : last.createdAt
 
         const query = firestore
-            .collectionGroup('recepies')
+            .collectionGroup('recipes')
             .where('published', '==', true)
             .orderBy('createdAt', 'desc')
             .startAfter(cursor)
             .limit(LIMIT)
 
-        const newRecepies = (await query.get()).docs.map((doc) => doc.data())
+        const newRecipes = (await query.get()).docs.map((doc) => doc.data())
 
-        setRecepies(recepies.concat(newRecepies))
+        setRecipes(recipes.concat(newRecipes))
         setLoading(false)
 
-        if(!newRecepies.length) setRecepiesEnd(true)
+        if(!newRecipes.length) setRecipesEnd(true)
     }
 
     return(
         <>
             <div className="container">
-                <RecepieFeed recepies={recepies} />
+                <RecepieFeed recipes={recipes} />
 
                 <div className="flex-center">
-                    {!loading && !recepiesEnd && <Button onClick={getMoreRecepies}>Load more</Button>}
+                    {!loading && !recipesEnd && <Button onClick={getMoreRecipes}>Load more</Button>}
                     <Loader visible={loading} />
-                    {recepiesEnd && 'You have reached the end!'}
+                    {recipesEnd && 'You have reached the end!'}
                 </div>
             </div>
         </>
@@ -52,15 +52,15 @@ export default function Home(props) {
 const LIMIT = 10
 
 export async function getServerSideProps(context) {
-    const recepiesQuery = firestore
-        .collectionGroup('recepies')
+    const recipesQuery = firestore
+        .collectionGroup('recipes')
         .where('published', '==', true)
         .orderBy('createdAt', 'desc')
         .limit(LIMIT)
 
-    const recepies = (await recepiesQuery.get()).docs.map(docToJson)
+    const recipes = (await recipesQuery.get()).docs.map(docToJson)
 
     return {
-        props: { recepies }, // will be passed to the page component as props
+        props: { recipes }, // will be passed to the page component as props
     }
 }

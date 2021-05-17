@@ -21,7 +21,7 @@ const getWidth = (width=0, index) => {
     return { width: `calc(${trim2((100/colNum)*cols)}% - 16px)` }
 }
 
-export const Col = ({ width, children }) => {
+export const Col = ({ width, children, ...rest }) => {
 
     const Column = useMemo(() => styled('div', {
         marginLeft: `${trim2(colGap/2)}px`,
@@ -36,7 +36,7 @@ export const Col = ({ width, children }) => {
         }
     }), [])
 
-    return <Column>{children}</Column>
+    return <Column {...rest}>{children}</Column>
 }
 
 /**
