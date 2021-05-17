@@ -38,6 +38,11 @@ export default function NavBar({ }) {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/[username]/new" as={`/${username}/new`}>
+                                    <a>New recepy</a>
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/[username]" as={`/${username}`}>
                                     <a>
                                         <img className="avatar" src={user.photoURL} />
