@@ -17,7 +17,7 @@ import { UserContext } from '~/lib/context'
 import toast from 'react-hot-toast'
 import { goTo } from '~/lib/helpers'
 
-export default function NewRecepie({  }) {
+export default function NewRecipe({  }) {
 
     const [ title, setTitle ] = useState('')
     const [ slug, setSlug ] = useState('')
@@ -65,6 +65,10 @@ export default function NewRecepie({  }) {
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
             heartCount: 0,
+            ingredients: ingredients.map(ing => ({
+                ammount: 300,
+                ingredient: firestore.collection('ingredients').doc(ing.uid)
+            }))
         }
 
         await ref.set(data);

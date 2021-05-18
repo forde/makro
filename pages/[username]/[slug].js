@@ -1,17 +1,12 @@
-import { firestore, getUserByUsername, docToJson } from '~/lib/firebase'
-import RecepieContent from '~/components/RecepieContent'
+import { useEffect, useState } from 'react'
+import { firestore, getUserByUsername, docToJson, getRecipeIngredients } from '~/lib/firebase'
+import RecipeContent from '~/components/RecipeContent'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 
-export default function Recepie(props) {
-
-    const recepieRef = firestore.doc(props.path)
-    const [ realtimeRecepie ] = useDocumentData(recepieRef)
-
-    const recepie = realtimeRecepie || props.recepie
-
+export default function Recipe(props) {
     return (
         <div className="container">
-            <RecepieContent recepie={recepie} />
+            <RecipeContent recipe={props.recipe} />
         </div>
     )
 }
@@ -20,17 +15,21 @@ export async function getStaticProps({ params }) {
     const { username, slug } = params
     const userDoc = await getUserByUsername(username)
 
-    let recepie
+    let recipe
     let path
 
     if(userDoc) {
-        const recepieRef = userDoc.ref.collection('recipes').doc(slug)
-        recepie = await docToJson(await recepieRef.get())
-        path = recepieRef.path
+        const recipeRef = userDoc.ref.collection('recipes').doc(slug)
+        recipe = await docToJson(await recipeRef.get())
+
+        //get ingredients
+        recipe.ingredients = await getRecipeIngredients(recipe)
+
+        path = recipeRef.path
     }
 
     return {
-        props: { recepie, path },
+        props: { recipe, path },
         revalidate: 5000,
     }
 }

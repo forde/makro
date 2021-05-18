@@ -3,11 +3,19 @@ import { percentOf } from '~/lib/helpers'
 
 export default function IngredientMacro({ ingredient, ammount }) {
 
-    const { energy, fat, carbs, protein, sugar } = ingredient.macro
+    if(!ingredient?.macro) return null
+
+    const { energy, fat, carbs, protein, sugar } = ingredient.macro || {}
 
     const ratio =  percentOf( Number(ammount), Number(ingredient.macroIn.replace(/\D/g,'')) )
 
     const valueInAmmount = x => !ratio ? x : parseInt((x * ratio ) / 100)
+
+    const per = () => {
+        if(!ammount) return ingredient.macroIn
+
+        return ammount+ingredient.macroIn.replace(/\d/g,'')
+    }
 
     return(
         <label>
@@ -18,7 +26,7 @@ export default function IngredientMacro({ ingredient, ammount }) {
             <Det>P: {valueInAmmount(protein)}g</Det>
             <Det>S: {valueInAmmount(sugar)}g</Det>
             <Det>/</Det>
-            <Det>{ingredient.macroIn} {ingredient.macroInDesc && `(${ingredient.macroInDesc})`}</Det>
+            <Det>{per()} {ingredient.macroInDesc && `(${ingredient.macroInDesc})`}</Det>
         </label>
     )
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import RecepieFeed from '~/components/RecepieFeed'
+import RecipeFeed from '~/components/RecipeFeed'
 import Loader from '~/components/Loader'
 import Button from '~/components/Button'
 import { firestore, fromMillis, docToJson } from '~/lib/firebase'
@@ -36,7 +36,7 @@ export default function Home(props) {
     return(
         <>
             <div className="container">
-                <RecepieFeed recipes={recipes} />
+                <RecipeFeed recipes={recipes} />
 
                 <div className="flex-center">
                     {!loading && !recipesEnd && <Button onClick={getMoreRecipes}>Load more</Button>}
@@ -58,7 +58,7 @@ export async function getServerSideProps(context) {
         .orderBy('createdAt', 'desc')
         .limit(LIMIT)
 
-    const recipes = (await recipesQuery.get()).docs.map(docToJson)
+    const recipes = await Promise.all((await recipesQuery.get()).docs.map(docToJson))
 
     return {
         props: { recipes }, // will be passed to the page component as props

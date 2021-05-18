@@ -1,7 +1,7 @@
 import { getUserByUsername, docToJson } from '~lib/firebase'
 
 import UsernameForm from '~/components/UsernameForm'
-import RecepieFeed from '~/components/RecepieFeed'
+import RecipeFeed from '~/components/RecipeFeed'
 import Button from '~/components/Button'
 import Metatags from '~/components/Metatags'
 import { auth } from '~/lib/firebase'
@@ -22,7 +22,7 @@ export default function Profile({ user, recipes }) {
         <>
             <Metatags />
             <div className="container">
-                <RecepieFeed recipes={recipes} />
+                <RecipeFeed recipes={recipes} />
                 <Button onClick={signOut}>Sign out</Button>
             </div>
         </>
@@ -47,7 +47,7 @@ export async function getServerSideProps({ query }) {
             .where('published', '==', true)
             .orderBy('createdAt', 'desc')
             .limit(5);
-        recipes = (await recipesQuery.get()).docs.map(docToJson)
+        recipes = await Promise.all((await recipesQuery.get()).docs.map(docToJson))
     }
 
     return {
