@@ -12,7 +12,7 @@ export default function RecipeContent({ recipe }) {
     return(
         <>
             <div className="card p-16 mb-24">
-                <Image src={recipe?.thumbnail} layout="responsive" width={760} height={570} />
+                <Image src={recipe?.thumbnail} layout="responsive" width={760} height={570} sizes={'760px'} />
             </div>
 
             <h1 className="bold mb-24">{recipe?.title}</h1>

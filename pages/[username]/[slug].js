@@ -5,7 +5,7 @@ import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 export default function Recipe(props) {
     return (
-        <div className="container">
+        <div className="container pb-48">
             <RecipeContent recipe={props.recipe} />
         </div>
     )
