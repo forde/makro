@@ -25,7 +25,7 @@ export default function NavBar({ }) {
 
     return(
         <Wrapper>
-            <div className="container pt-32 pb-32 mb-32 flex-center-x">
+            <div className="container pt-32 pb-32 flex-center-x">
                 <Logo>
                     Moje <img className="ml-16 mr-16 clickable" onClick={onMeClick} src="https://vercel.com/api/www/avatar/a45cb6ebfdd9fc6ebc17d076e57ef82d9d2bb970?s=60"/>Keto
                 </Logo>

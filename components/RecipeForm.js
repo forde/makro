@@ -47,11 +47,15 @@ export default function RecipeForm({ recipe=defaults }) {
 
     const addIngredient = ing => {
         if(!!ingredients.filter(i => i.uid === ing.uid).length) return alert('Ten składnik juź jest na liście!')
-        setIngredients([...ingredients, {...ing, ammount: Number(ing.macroIn.replace(/\D/g,'')) } ])
+        setIngredients([...ingredients, {...ing, ammount: Number(ing.macroIn.replace(/\D/g,'')), ammountDesc: '' } ])
     }
 
     const setIngredientAmmount = (val, uid) => {
         setIngredients(ingredients.map(ing => ing.uid === uid ? {...ing, ammount: val} : ing))
+    }
+
+    const setIngredientAmmountDesc = (val, uid) => {
+        setIngredients(ingredients.map(ing => ing.uid === uid ? {...ing, ammountDesc: val} : ing))
     }
 
     const removeIngredient = uid => {
@@ -79,7 +83,8 @@ export default function RecipeForm({ recipe=defaults }) {
             updatedAt: serverTimestamp(),
             heartCount: 0,
             ingredients: ingredients.map(ing => ({
-                ammount: 300,
+                ammount: ing.ammount,
+                ammountDesc: ing.ammountDesc || '',
                 ingredient: ing.uid
             }))
         }
@@ -140,22 +145,36 @@ export default function RecipeForm({ recipe=defaults }) {
                 <div className="mb-32">
                     {ingredients.map((ing, i) => (
                         <Row key={i} >
-                            <Col width={[9, 8, 12]}>
+                            <Col width={[7, 8, 12]}>
                                 <div className="flex-center-y h-100">
                                     <div className="bold mb-8">{ing.name}</div>
                                     <IngredientMacro ingredient={ing} ammount={ing.ammount} />
                                 </div>
                             </Col>
-                            <Col width={[3, 4, 12]}>
+                            <Col width={[2, 2, 12]}>
                                 <div className="flex-center-y-row">
                                     <Input
                                         disabled={!ing.name}
                                         type="number"
-                                        placeholder="Ammount"
+                                        placeholder="Ilość"
                                         suffix={ing?.macroIn?.replace(/\d/g,'')}
                                         value={ing.ammount}
                                         onChange={val => setIngredientAmmount(val, ing.uid)}
                                     />
+                                </div>
+                            </Col>
+                            <Col width={[2, 2, 12]}>
+                                <div className="flex-center-y-row">
+                                    <Input
+                                        disabled={!ing.name}
+                                        placeholder="Opis"
+                                        value={ing.ammountDesc}
+                                        onChange={val => setIngredientAmmountDesc(val, ing.uid)}
+                                    />
+                                </div>
+                            </Col>
+                            <Col width={[1,1, 12]}>
+                                <div className="flex-center-y-row h-100">
                                     <RemoveIng onClick={() => removeIngredient(ing.uid)} />
                                 </div>
                             </Col>

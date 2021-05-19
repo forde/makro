@@ -37,12 +37,19 @@ export default function Ingredients() {
     return(
         <>
             <div className="container pb-48">
-                <Input
-                    placeholder="Search"
-                    onChange={setQuery}
-                    value={query}
-                    className="mb-32"
-                />
+                <Row className="mb-32">
+                    <Col width={[9,9,12]}>
+                        <Input
+                            placeholder="Szukaj"
+                            onChange={setQuery}
+                            value={query}
+                        />
+                    </Col>
+                    <Col width={[3,3,12]}>
+                        <Button className="w-100"onClick={() => setFormVisible(true)}>Nowy składnik</Button>
+                    </Col>
+                </Row>
+
                 {ingredients.filter(matchSearch).map(ing => {
                     return(
                         <div key={ing.uid} className="card mb-24 p-24">
@@ -59,7 +66,7 @@ export default function Ingredients() {
                         </div>
                     )
                 })}
-                <Button onClick={() => setFormVisible(true)}>Add ingredient</Button>
+                <Button className="w-100"onClick={() => setFormVisible(true)}>Nowy składnik</Button>
                 {formVisible &&
                     <Modal onCloseRequest={closeForm}>
                         <IngredientForm

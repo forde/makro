@@ -11,7 +11,7 @@ function RecipeItem({ recipe, admin }) {
         <Link href={`/[username]/[slug]`} as={`/${recipe.username}/${recipe.slug}`}>
             <a>
                 <div className="card p-16 mb-32">
-                    <div className="br-6 oh mb-24">
+                    <div className="br-10 oh mb-24">
                         <Image src={recipe?.thumbnail} layout="intrinsic" width={760} height={570} sizes={'760px'} />
                     </div>
                     <h1 className="bold mb-16">{recipe.title}</h1>
