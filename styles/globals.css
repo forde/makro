@@ -329,3 +329,7 @@ i {
     list-style: disc;
     margin-bottom: 6px;
 }
+.content a {
+    color: #7E69FD;
+    text-decoration: underline;
+}

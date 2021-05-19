@@ -6,39 +6,11 @@ import Image from 'next/image'
 import IngredientMacro from '~/components/IngredientMacro'
 import { UserContext } from '~/lib/context'
 import { styled } from '@stitches/react'
-import { percentOf } from '~/lib/helpers'
+import RecipeMakro from '~/components/RecipeMakro'
 
 export default function RecipeContent({ recipe }) {
 
     const createdAt = typeof recipe?.createdAt === 'number' ? new Date(recipe.createdAt) : recipe.createdAt.toDate()
-
-    const makro = (recipe?.ingredients || []).reduce((acc, ing) => {
-        const ratio =  percentOf( Number(ing.ammount), Number(ing.macroIn.replace(/\D/g,'')) )
-        const valueInAmmount = x => !ratio ? x : parseInt((x * ratio ) / 100)
-        return {
-            fat: acc.fat + valueInAmmount(ing.macro.fat),
-            carbs: acc.carbs + valueInAmmount(ing.macro.carbs),
-            sugar: acc.sugar + valueInAmmount(ing.macro.sugar),
-            protein: acc.protein + valueInAmmount(ing.macro.protein),
-            energy: acc.energy + valueInAmmount(ing.macro.energy),
-        }
-    }, { fat: 0, carbs: 0, sugar: 0, protein: 0, energy: 0 })
-
-
-    const recipeMakro = (portions=1) => {
-
-        const perPortion = val => parseInt(val / portions)
-
-        return(
-            <div className="mb-32">
-                <MetaDetail><i>🔥</i>Kcal <strong className="ml-8">{perPortion(makro.energy)}</strong></MetaDetail>
-                <MetaDetail><i>🥓</i>Tłuszcz <strong className="ml-8">{perPortion(makro.fat)}</strong></MetaDetail>
-                <MetaDetail><i>🍞</i>Węgle <strong className="ml-8">{perPortion(makro.carbs)}</strong></MetaDetail>
-                <MetaDetail><i>🍭</i>Cukier <strong className="ml-8">{perPortion(makro.sugar)}</strong></MetaDetail>
-                <MetaDetail><i>🍖</i>Białko <strong className="ml-8">{perPortion(makro.protein)}</strong></MetaDetail>
-            </div>
-        )
-    }
 
     return(
         <div className="card mb-48 p-16">
@@ -77,10 +49,10 @@ export default function RecipeContent({ recipe }) {
                 <ReactMarkdown className="content mb-48">{recipe?.content}</ReactMarkdown>
 
                 <h2 className="mb-24">Makro (całość)</h2>
-                {recipeMakro()}
+                <RecipeMakro recipe={recipe} className="mb-32" />
 
                 <h2 className="mb-24">Makro (1 porcja)</h2>
-                {recipeMakro(Number(recipe?.portions))}
+                <RecipeMakro recipe={recipe} perPortion />
 
             </div>
         </div>

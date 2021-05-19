@@ -14,7 +14,7 @@ import { IoMdRemoveCircleOutline } from 'react-icons/io'
 import { firestore, auth, serverTimestamp } from '~/lib/firebase'
 import { UserContext } from '~/lib/context'
 import toast from 'react-hot-toast'
-import { goTo } from '~/lib/helpers'
+import { goTo, percentOf } from '~/lib/helpers'
 
 const defaults = {
     title: '',
@@ -69,6 +69,24 @@ export default function RecipeForm({ recipe=defaults }) {
         const uid = auth.currentUser.uid
         const ref = firestore.collection('users').doc(uid).collection('recipes').doc(slug)
 
+        const _ingredients = ingredients.map(ing => ({
+            ammount: ing.ammount,
+            ammountDesc: ing.ammountDesc || '',
+            ingredient: ing.uid
+        }))
+
+        const _macro = ingredients.reduce((acc, ing) => {
+            const ratio =  percentOf( Number(ing.ammount), Number(ing.macroIn.replace(/\D/g,'')) )
+            const valueInAmmount = x => !ratio ? x : parseInt((x * ratio ) / 100)
+            return {
+                fat: acc.fat + valueInAmmount(ing.macro.fat),
+                carbs: acc.carbs + valueInAmmount(ing.macro.carbs),
+                sugar: acc.sugar + valueInAmmount(ing.macro.sugar),
+                protein: acc.protein + valueInAmmount(ing.macro.protein),
+                energy: acc.energy + valueInAmmount(ing.macro.energy),
+            }
+        }, { fat: 0, carbs: 0, sugar: 0, protein: 0, energy: 0 })
+
         const data = {
             title,
             slug,
@@ -82,11 +100,8 @@ export default function RecipeForm({ recipe=defaults }) {
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
             heartCount: 0,
-            ingredients: ingredients.map(ing => ({
-                ammount: ing.ammount,
-                ammountDesc: ing.ammountDesc || '',
-                ingredient: ing.uid
-            }))
+            ingredients: _ingredients,
+            macro: _macro
         }
 
         await ref.set(data);

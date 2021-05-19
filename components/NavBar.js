@@ -27,7 +27,7 @@ export default function NavBar({ }) {
         <Wrapper>
             <div className="container pt-32 pb-32 flex-center-x">
                 <Logo>
-                    Moje <img className="ml-16 mr-16 clickable" onClick={onMeClick} src="https://vercel.com/api/www/avatar/a45cb6ebfdd9fc6ebc17d076e57ef82d9d2bb970?s=60"/>Keto
+                    Moje <img className="ml-16 mr-16 clickable" onClick={onMeClick} src="https://vercel.com/api/www/avatar/a45cb6ebfdd9fc6ebc17d076e57ef82d9d2bb970?s=80"/>Keto
                 </Logo>
             </div>
         </Wrapper>
@@ -37,6 +37,7 @@ export default function NavBar({ }) {
 const Logo = styled('div', {
     fontSize: '32px',
     fontWeight: 'bold',
+    textTransform: 'uppercase',
     lineHeight: 1,
     display: 'flex',
     alignItems: 'center',
