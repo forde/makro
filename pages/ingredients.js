@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import { styled } from '@stitches/react'
 import { FiEdit } from 'react-icons/fi'
-
 import { Row, Col } from '~/components/grid'
 import Modal from '~/components/Modal'
 import Button from '~/components/Button'

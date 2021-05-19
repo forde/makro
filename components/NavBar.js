@@ -1,64 +1,41 @@
 import Link from 'next/link'
 import { useContext } from 'react'
 import { styled } from '@stitches/react'
-
+import { useRouter } from 'next/router'
 import { colors } from '~/styles'
 import { auth, googleAuthProvider } from '~/lib/firebase'
 import { UserContext } from '~/lib/context'
+import { goTo } from '~/lib/helpers'
 
 export default function NavBar({ }) {
 
     const { user, username } = useContext(UserContext)
 
+    const router = useRouter()
+
     const signIn = async () => {
         await auth.signInWithPopup(googleAuthProvider)
     }
 
+    const onMeClick = () => {
+        if(!user) return signIn()
+        if(router.pathname !== '/[username]') return goTo(`/[username]`, `/${username}`)
+        goTo(`/`)
+    }
+
     return(
-        <Component>
-            <div className="container">
-                <Link href="/">
-                    <a>
-                        <Logo>
-                            <i className="icon-l">🔥</i> Home
-                        </Logo>
-                    </a>
-                </Link>
-                <ul>
-                    {!user &&
-                        <li>
-                            <a onClick={signIn}>Sign in</a>
-                        </li>
-                    }
-                    {user &&
-                        <>
-                            <li>
-                                <Link href="/ingredients">
-                                    <a>Ingredients</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/[username]/new" as={`/${username}/new`}>
-                                    <a>New recepy</a>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/[username]" as={`/${username}`}>
-                                    <a>
-                                        <img className="avatar" src={user.photoURL} />
-                                    </a>
-                                </Link>
-                            </li>
-                        </>
-                    }
-                </ul>
+        <Wrapper>
+            <div className="container pt-32 pb-32 mb-32 flex-center-x">
+                <Logo>
+                    Moje <img className="ml-16 mr-16 clickable" onClick={onMeClick} src="https://vercel.com/api/www/avatar/a45cb6ebfdd9fc6ebc17d076e57ef82d9d2bb970?s=60"/>Keto
+                </Logo>
             </div>
-        </Component>
+        </Wrapper>
     )
 }
 
 const Logo = styled('div', {
-    fontSize: '22px',
+    fontSize: '32px',
     fontWeight: 'bold',
     lineHeight: 1,
     display: 'flex',
@@ -67,27 +44,6 @@ const Logo = styled('div', {
     i: { marginRight: '8px' }
 })
 
-const Component = styled('nav', {
-    '.container': {
-        paddingTop: '32px',
-        paddingBottom: '32px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    '.sign-in': {
-        cursor: 'pointer'
-    },
-    'ul': {
-        display: 'flex',
-        alignItems: 'center',
-        li: {
-            marginLeft: '16px'
-        }
-    },
-    '.avatar': {
-        width: '36px',
-        height: '36px',
-        borderRadius: '100%'
-    }
+const Wrapper = styled('nav', {
+
 })

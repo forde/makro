@@ -36,6 +36,11 @@ h1, h2, h3, h4 { margin: 0; font-weight: bold; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.5rem; }
 h3 { font-size: 1.25rem; }
+@media(max-width: 767px) {
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.25rem; }
+    h3 { font-size: 1.25rem; }
+}
 
 div {
     position: relative;
@@ -66,7 +71,7 @@ label, .label {
     display: inline-block;
     font-size: 15px;
     font-weight: 700;
-    color: #969da2;
+    color: #767b7f;
 }
 
 fieldset {
@@ -123,6 +128,19 @@ input[type="file"] {
     font-weight: 400;
 }
 
+.br-12 {
+    border-radius: 12px;
+}
+.br-6 {
+    border-radius: 6px;
+}
+.oh {
+    overflow: hidden;
+}
+.pad-4-3 {
+    padding-top: 75%;
+}
+
 .card {
     background: white;
     border-radius: 12px;
@@ -142,7 +160,7 @@ input[type="file"] {
     color: #df3b3b;
 }
 
-.purple {
+.accent {
     color: #7E69FD;
 }
 
@@ -154,13 +172,20 @@ i {
     font-size: 24px;
     line-height: 1;
 }
-
+.icon-s {
+    font-size: 16px;
+}
+.icon-m {
+    font-size: 24px;
+}
 .icon-l {
     font-size: 32px;
 }
-
-.icon-m {
-    font-size: 24px;
+.icon-xl {
+    font-size: 48px;
+}
+.icon-xxl {
+    font-size: 60px;
 }
 
 .relative {
@@ -190,6 +215,10 @@ i {
 .flex-center-y {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+.flex-center-x {
+    display: flex;
     justify-content: center;
 }
 
@@ -241,6 +270,9 @@ i {
 .p-32 { padding: 32px; }
 .p-48 { padding: 48px; }
 
+.content {
+    line-height:1.4;
+}
 .content * {
     margin-bottom: 16px;
     line-height:1.4;

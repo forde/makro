@@ -12,7 +12,7 @@ const spin = keyframes({
 
 const Component = styled('div', {
     border: `6px solid ${colors.bg}`,
-    borderTop: `6px solid ${colors.purple}`,
+    borderTop: `6px solid ${colors.accent}`,
     borderRadius: '50%',
     width: '30px',
     height: '30px',

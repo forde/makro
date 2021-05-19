@@ -35,13 +35,13 @@ export default function Home(props) {
 
     return(
         <>
-            <div className="container">
+            <div className="container pb-48">
                 <RecipeFeed recipes={recipes} />
 
                 <div className="flex-center">
-                    {!loading && !recipesEnd && <Button onClick={getMoreRecipes}>Load more</Button>}
+                    {!loading && !recipesEnd && <Button onClick={getMoreRecipes} size="small">Dawaj więcej!</Button>}
                     <Loader visible={loading} />
-                    {recipesEnd && 'You have reached the end!'}
+                    {recipesEnd && 'To już jest koniec...'}
                 </div>
             </div>
         </>

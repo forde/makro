@@ -37,7 +37,7 @@ export default function IngredientFinder({ onIngredientSelected, ...rest }) {
     return(
         <div ref={finderRef} {...rest} >
             <Input
-                placeholder="Search for ingredients"
+                placeholder="Szukaj składników"
                 value={query}
                 onChange={setQuery}
             />
@@ -51,8 +51,8 @@ export default function IngredientFinder({ onIngredientSelected, ...rest }) {
                             <div className="bold mb-8">{res.name}</div>
                             <IngredientMacro ingredient={res} />
                         </div>)}
-                        <div className="bold purple" onClick={() => setFormVisible(true)}>
-                            <div>Add ingredient</div>
+                        <div className="bold accent" onClick={() => setFormVisible(true)}>
+                            <div>Dodaj nowy</div>
                         </div>
                     </>
                 }

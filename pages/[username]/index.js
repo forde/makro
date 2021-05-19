@@ -1,9 +1,10 @@
 import { getUserByUsername, docToJson } from '~lib/firebase'
-
+import Link from 'next/link'
 import UsernameForm from '~/components/UsernameForm'
 import RecipeFeed from '~/components/RecipeFeed'
 import Button from '~/components/Button'
 import Metatags from '~/components/Metatags'
+import { Row, Col } from '~/components/grid'
 import { auth } from '~/lib/firebase'
 import { goTo } from '~/lib/helpers'
 
@@ -21,9 +22,27 @@ export default function Profile({ user, recipes }) {
     return(
         <>
             <Metatags />
-            <div className="container">
-                <RecipeFeed recipes={recipes} />
-                <Button onClick={signOut}>Sign out</Button>
+            <div className="container pt-24 pb-48">
+                <Row>
+                    <Col width={[4,4,12]}>
+                        <a className="card block flex-center" onClick={() => goTo(`/[username]/new`, `/${user.username}/new`)}>
+                            <i className="icon-xxl mb-24">🥘</i>
+                            <strong>Nowy przepis</strong>
+                        </a>
+                    </Col>
+                    <Col width={[4,4,12]}>
+                        <a className="card block flex-center" onClick={() => goTo(`/ingredients`)}>
+                            <i className="icon-xxl mb-24">🧀</i>
+                            <strong>Skłądniki</strong>
+                        </a>
+                    </Col>
+                    <Col width={[4,4,12]}>
+                        <a className="card block flex-center" onClick={() => signOut()}>
+                            <i className="icon-xxl mb-24">👋🏼</i>
+                            <strong>Wyloguj</strong>
+                        </a>
+                    </Col>
+                </Row>
             </div>
         </>
     )
@@ -41,16 +60,19 @@ export async function getServerSideProps({ query }) {
     let recipes = null;
 
     if (userDoc) {
-        user = userDoc.data();
-        const recipesQuery = userDoc.ref
+        user = userDoc.data()
+        /*const recipesQuery = userDoc.ref
             .collection('recipes')
             .where('published', '==', true)
             .orderBy('createdAt', 'desc')
             .limit(5);
-        recipes = await Promise.all((await recipesQuery.get()).docs.map(docToJson))
+        recipes = await Promise.all((await recipesQuery.get()).docs.map(docToJson))*/
     }
 
     return {
-        props: { user, recipes }, // will be passed to the page component as props
+        props: {
+            user,
+            //recipes
+        }
     }
 }

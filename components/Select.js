@@ -199,7 +199,7 @@ const Wrapper = styled('div', {
         },
 
         '&.options-visible': {
-            border: `3px solid ${colors.purple}`
+            border: `3px solid ${colors.accent}`
         },
 
         '.value-item': {
@@ -269,7 +269,7 @@ const Wrapper = styled('div', {
                 },
             },
             '&.selected': {
-                color: `${colors.purple}!important`,
+                color: `${colors.accent}!important`,
             }
         }
     },

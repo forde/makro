@@ -21,10 +21,10 @@ export default function IngredientMacro({ ingredient, ammount }) {
         <label>
             <Det>{valueInAmmount(energy)} Kcal</Det>
             <Det>|</Det>
-            <Det>F: {valueInAmmount(fat)}g</Det>
-            <Det>C: {valueInAmmount(carbs)}g</Det>
-            <Det>P: {valueInAmmount(protein)}g</Det>
-            <Det>S: {valueInAmmount(sugar)}g</Det>
+            <Det>T: {valueInAmmount(fat)}g</Det>
+            <Det>W: {valueInAmmount(carbs)}g</Det>
+            <Det>C: {valueInAmmount(sugar)}g</Det>
+            <Det>B: {valueInAmmount(protein)}g</Det>
             <Det>/</Det>
             <Det>{per()} {ingredient.macroInDesc && `(${ingredient.macroInDesc})`}</Det>
         </label>

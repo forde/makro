@@ -69,6 +69,6 @@ const Icon = styled(BsImage, {
     cursor: 'pointer',
     color: colors.text,
     '&:hover': {
-        color: colors.purple,
+        color: colors.accent,
     },
 })

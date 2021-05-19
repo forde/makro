@@ -2,12 +2,12 @@ import { styled } from '@stitches/react'
 import { colors } from '~/styles'
 
 export default function Button({ children, disabled, onClick, ...rest }) {
-    return <Component {...rest} disabled={disabled} onClick={() => disabled ? null : onClick()}>{children}</Component>
+    return <Component {...rest} disabled={disabled} onClick={() => (!onClick || disabled) ? null : onClick()}>{children}</Component>
 }
 
 const Component = styled('button', {
-    backgroundColor: colors.purple,
-    border: `3px solid ${colors.purple}`,
+    backgroundColor: colors.accent,
+    border: `3px solid ${colors.accent}`,
     color: 'white',
     borderRadius: '12px',
     fontSize: '18px',
@@ -22,6 +22,14 @@ const Component = styled('button', {
                 backgroundColor: 'white',
                 color: colors.text,
                 border: `3px solid ${colors.bg}`,
+            },
+        },
+        size: {
+            small: {
+                fontSize: '16px',
+                fontWeight: 'bold',
+                height: '42px',
+                padding: '10px 12px',
             }
         },
         disabled: {

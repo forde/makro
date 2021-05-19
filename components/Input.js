@@ -56,13 +56,16 @@ const Input = styled('input', {
         opacity: 1,
     },
     '&:focus': {
-        border: `3px solid ${colors.purple}`,
+        border: `3px solid ${colors.accent}`,
     },
     '&:hover': {
 
     },
     '&:read-only': {
 
+    },
+    '&:disabled': {
+        opacity: '.5',
     },
     '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
         '-webkit-appearance': 'none',

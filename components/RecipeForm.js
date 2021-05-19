@@ -20,9 +20,10 @@ const defaults = {
     title: '',
     slug: '',
     category: '',
+    portions: '',
     content: '',
     ingredients: [],
-    published: '0',
+    published: '1',
     thumbnail: ''
 
 }
@@ -32,9 +33,10 @@ export default function RecipeForm({ recipe=defaults }) {
     const [ title, setTitle ] = useState(recipe.title)
     const [ slug, setSlug ] = useState(recipe.slug)
     const [ category, setCategory ] = useState(recipe.category)
+    const [ portions, setPortions ] = useState(recipe.portions)
     const [ content, setContent ] = useState(recipe.content)
     const [ ingredients, setIngredients ] = useState(recipe.ingredients)
-    const [ published, setPublished ] = useState(recipe.published)
+    const [ published, setPublished ] = useState(recipe.published ? '1' : '0')
     const [ thumbnail, setThumbnail ] = useState(recipe.thumbnail)
 
     const { username } = useContext(UserContext)
@@ -44,7 +46,7 @@ export default function RecipeForm({ recipe=defaults }) {
     }, [title])
 
     const addIngredient = ing => {
-        if(!!ingredients.filter(i => i.uid === ing.uid).length) return alert('Ingredient already added!')
+        if(!!ingredients.filter(i => i.uid === ing.uid).length) return alert('Ten składnik juź jest na liście!')
         setIngredients([...ingredients, {...ing, ammount: Number(ing.macroIn.replace(/\D/g,'')) } ])
     }
 
@@ -56,7 +58,7 @@ export default function RecipeForm({ recipe=defaults }) {
         setIngredients(ingredients.filter(ing => ing.uid !== uid))
     }
 
-    const formValid = !!ingredients.length && title && slug && category && content && thumbnail
+    const formValid = !!ingredients.length && title && slug && category && content && thumbnail && portions
 
     const submit = async () => {
 
@@ -72,6 +74,7 @@ export default function RecipeForm({ recipe=defaults }) {
             content,
             thumbnail,
             category,
+            portions: Number(portions),
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
             heartCount: 0,
@@ -83,7 +86,7 @@ export default function RecipeForm({ recipe=defaults }) {
 
         await ref.set(data);
 
-        toast.success('Recipe created!')
+        toast.success('Przepis zapisany')
 
         goTo(`/[username]/[slug]`, `/${username}/${slug}`)
     }
@@ -99,24 +102,32 @@ export default function RecipeForm({ recipe=defaults }) {
                         </div>
                     </Col>
                     <Col width={[8,8,12]}>
-                        <Input placeholder="Title" value={title} onChange={setTitle} />
+                        <Input placeholder="Tytuł" value={title} onChange={setTitle} />
                         <label className="pt-16 pl-16 mb-16 block gray fw-400">{slug || '...'}</label>
                         <Row>
                             <Col width={[6,6,12]} >
                                 <Select
                                     value={category}
-                                    placeholder="Select category"
-                                    options={[ { name: 'Breakfast', value: 'breakfast' }, { name: 'Dinner', value: 'dinner' }]}
+                                    placeholder="Kategoria"
+                                    options={[ { name: 'Śniadanie', value: 'śniadanie' }, { name: 'Obiad', value: 'obiad' }, { name: 'Deser', value: 'deser' }]}
                                     onChange={setCategory}
                                 />
                             </Col>
-                            <Col width={[6,6,12]} >
+                            {/*<Col width={[6,6,12]} >
                                 <Select
-                                value={published}
-                                placeholder="Select value"
-                                options={[ { name: 'Published', value: '1' }, { name: 'Unpublished', value: '0' }]}
-                                onChange={setPublished}
-                            />
+                                    value={published}
+                                    placeholder="Select"
+                                    options={[ { name: 'Published', value: '1' }, { name: 'Unpublished', value: '0' }]}
+                                    onChange={setPublished}
+                                />
+                            </Col>*/}
+                            <Col width={[6,6,12]}>
+                                <Input
+                                    type="number"
+                                    placeholder="Ilość porcji"
+                                    value={portions}
+                                    onChange={setPortions}
+                                />
                             </Col>
                         </Row>
                     </Col>
@@ -128,7 +139,7 @@ export default function RecipeForm({ recipe=defaults }) {
 
                 <div className="mb-32">
                     {ingredients.map((ing, i) => (
-                        <Row key={ing.uid} >
+                        <Row key={i} >
                             <Col width={[9, 8, 12]}>
                                 <div className="flex-center-y h-100">
                                     <div className="bold mb-8">{ing.name}</div>
@@ -138,9 +149,10 @@ export default function RecipeForm({ recipe=defaults }) {
                             <Col width={[3, 4, 12]}>
                                 <div className="flex-center-y-row">
                                     <Input
+                                        disabled={!ing.name}
                                         type="number"
                                         placeholder="Ammount"
-                                        suffix={ing.macroIn.replace(/\d/g,'')}
+                                        suffix={ing?.macroIn?.replace(/\d/g,'')}
                                         value={ing.ammount}
                                         onChange={val => setIngredientAmmount(val, ing.uid)}
                                     />
@@ -164,7 +176,7 @@ export default function RecipeForm({ recipe=defaults }) {
                     </Col>
                 </Row>
 
-                <Button className="w-100" disabled={!formValid} onClick={submit} >Save recipe</Button>
+                <Button className="w-100" disabled={!formValid} onClick={submit} >{'Zapisz'}</Button>
 
             </div>
         </>
