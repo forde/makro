@@ -15,8 +15,8 @@ function RecipeItem({ recipe, admin }) {
                     <div className="br-10 oh mb-24">
                         <Image src={recipe?.thumbnail} layout="intrinsic" width={760} height={570} sizes={'760px'} />
                     </div>
-                    <h1 className="bold mb-24">{recipe.title}</h1>
-                    <RecipeMakro recipe={recipe} perPortion />
+                    <h1 className="bold mb-24 pl-16 pr-16">{recipe.title}</h1>
+                    <RecipeMakro recipe={recipe} perPortion className="pl-16 pr-16"/>
                 </div>
             </a>
         </Link>

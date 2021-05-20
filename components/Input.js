@@ -49,6 +49,8 @@ const Input = styled('input', {
     padding: '16px 16px 15px',
     fontSize: '17px',
     lineHeight: 1,
+    boxShadow: '0 6px 24px rgba(0,0,0,.06), 0 2px 6px rgba(31,26,34,.06), 0 0 0 50px white inset!important',
+    backgroundImage: '-webkit-linear-gradient(hsla(0,0%,100%,0), hsla(0,0%,100%,0))!important',
     color: colors.text,
     transition: 'all .2s ease-in-out',
     '&::placeholder': {

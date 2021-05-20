@@ -11,6 +11,7 @@ const Component = styled('button', {
     color: 'white',
     borderRadius: '12px',
     fontSize: '18px',
+    lineHeight: '1',
     fontWeight: 'bold',
     height: '54px',
     padding: '15px 15px',

@@ -116,7 +116,7 @@ export default function RecipeForm({ recipe=defaults }) {
             <div className="container">
                 <Row>
                     <Col width={[4,4,12]} className="pb-16">
-                        <div className="card h-100 flex-center p-16" style={{backgroundImage: `url(${thumbnail})`, backgroundPosition: 'center center', backgroundSize: 'cover' }}>
+                        <div className="card h-100 flex-center p-16" style={{minHeight: '150px', backgroundImage: `url(${thumbnail})`, backgroundPosition: 'center center', backgroundSize: 'cover' }}>
                             <ImageUploader onDownloadUrlReady={setThumbnail} />
                             {thumbnail && <RemoveThumb onClick={() => setThumbnail('')} />}
                         </div>
@@ -160,35 +160,31 @@ export default function RecipeForm({ recipe=defaults }) {
                 <div className="mb-32">
                     {ingredients.map((ing, i) => (
                         <Row key={i} >
-                            <Col width={[7, 8, 12]}>
+                            <Col width={[7, 7, 12]}>
                                 <div className="flex-center-y h-100">
                                     <div className="bold mb-8">{ing.name}</div>
                                     <IngredientMacro ingredient={ing} ammount={ing.ammount} />
                                 </div>
                             </Col>
-                            <Col width={[2, 2, 12]}>
-                                <div className="flex-center-y-row">
-                                    <Input
-                                        disabled={!ing.name}
-                                        type="number"
-                                        placeholder="Ilość"
-                                        suffix={ing?.macroIn?.replace(/\d/g,'')}
-                                        value={ing.ammount}
-                                        onChange={val => setIngredientAmmount(val, ing.uid)}
-                                    />
-                                </div>
+                            <Col width={[2, 2, 5]}>
+                                <Input
+                                    disabled={!ing.name}
+                                    type="number"
+                                    placeholder="Ilość"
+                                    suffix={ing?.macroIn?.replace(/\d/g,'')}
+                                    value={ing.ammount}
+                                    onChange={val => setIngredientAmmount(val, ing.uid)}
+                                />
                             </Col>
-                            <Col width={[2, 2, 12]}>
-                                <div className="flex-center-y-row">
-                                    <Input
-                                        disabled={!ing.name}
-                                        placeholder="Opis"
-                                        value={ing.ammountDesc}
-                                        onChange={val => setIngredientAmmountDesc(val, ing.uid)}
-                                    />
-                                </div>
+                            <Col width={[2, 2, 5]}>
+                                <Input
+                                    disabled={!ing.name}
+                                    placeholder="Opis"
+                                    value={ing.ammountDesc}
+                                    onChange={val => setIngredientAmmountDesc(val, ing.uid)}
+                                />
                             </Col>
-                            <Col width={[1,1, 12]}>
+                            <Col width={[1,1, 2]}>
                                 <div className="flex-center-y-row h-100">
                                     <RemoveIng onClick={() => removeIngredient(ing.uid)} />
                                 </div>
