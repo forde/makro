@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import ReactMarkdown from 'react-markdown'
@@ -12,6 +12,7 @@ export default function RecipeContent({ recipe }) {
 
     const createdAt = typeof recipe?.createdAt === 'number' ? new Date(recipe.createdAt) : recipe.createdAt.toDate()
 
+    const [ withIngredientMacro, setWithIngredientMacro ] = useState(false)
     return(
         <div className="card mb-48 p-16">
 
@@ -31,7 +32,8 @@ export default function RecipeContent({ recipe }) {
                     <MetaDetail><i>⚙️ </i><EditLink recipe={recipe}/></MetaDetail>
                 </div>
 
-                <h2 className="mb-24">Składniki</h2>
+                <h2 className="mb-24 flex-center-y-row">Składniki <MetaDetail className="accent fw-400" style={{margin: '0 0 0 12px', cursor: 'pointer'}} onClick={() => setWithIngredientMacro(!withIngredientMacro)}>makro</MetaDetail></h2>
+
                 <div className="mb-48">
                     {(recipe?.ingredients || []).map((ing, i) => (
                         <div key={i} className="mb-16">
@@ -40,7 +42,7 @@ export default function RecipeContent({ recipe }) {
                                 {` ${ing.ammount}`}{ing?.macroIn?.replace(/\d/g,'')}
                                 {ing.ammountDesc ? ` (${ing.ammountDesc})` : null}
                             </div>
-                            <IngredientMacro ingredient={ing} />
+                            {withIngredientMacro && <IngredientMacro ingredient={ing} />}
                         </div>
                     ))}
                 </div>

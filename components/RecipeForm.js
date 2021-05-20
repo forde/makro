@@ -90,8 +90,8 @@ export default function RecipeForm({ recipe=defaults }) {
         const data = {
             title,
             slug,
-            uid,
-            username,
+            uid,//
+            username,//
             published: Boolean(Number(published)),
             content,
             thumbnail,
@@ -99,7 +99,7 @@ export default function RecipeForm({ recipe=defaults }) {
             portions: Number(portions),
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
-            heartCount: 0,
+            heartCount: 0,//
             ingredients: _ingredients,
             macro: _macro
         }
