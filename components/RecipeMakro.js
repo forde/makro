@@ -1,10 +1,23 @@
 import { styled } from '@stitches/react'
+import { UserContext } from '~/lib/context'
+import { useContext } from 'react'
+import { percentOf } from '~/lib/helpers'
 
 export default function RecipeMakro({ recipe, perPortion, ...rest }) {
 
     const { energy, fat, carbs, sugar, protein } = recipe.macro
 
+    const { weight } = useContext(UserContext)
+
     const val = v => perPortion ? parseInt(v / recipe.portions) : v
+
+    const proteinDemand = () => {
+        if(!perPortion || !weight) return
+        const protInPort = val(protein)
+        const protLimit = weight * 1.5
+        const demandPerc = percentOf(protInPort, protLimit)
+        return `(${demandPerc}%)`
+    }
 
     return(
         <div {...rest}>
@@ -12,7 +25,7 @@ export default function RecipeMakro({ recipe, perPortion, ...rest }) {
             <MetaDetail><i>🥓</i>Tłuszcz <strong className="ml-8">{val(fat)}</strong></MetaDetail>
             <MetaDetail><i>🍞</i>Węgle <strong className="ml-8">{val(carbs)}</strong></MetaDetail>
             <MetaDetail><i>🍭</i>Cukier <strong className="ml-8">{val(sugar)}</strong></MetaDetail>
-            <MetaDetail><i>🍖</i>Białko <strong className="ml-8">{val(protein)}</strong></MetaDetail>
+            <MetaDetail><i>🍖</i>Białko <strong className="ml-8">{val(protein)} {proteinDemand()}</strong></MetaDetail>
         </div>
     )
 }
