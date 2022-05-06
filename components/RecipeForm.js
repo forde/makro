@@ -66,6 +66,8 @@ export default function RecipeForm({ recipe=defaults }) {
 
     const submit = async () => {
 
+        if(username !== 'forde') return alert('Only admins can do that for now. Sorry...')
+
         const uid = auth.currentUser.uid
         const ref = firestore.collection('users').doc(uid).collection('recipes').doc(slug)
 
@@ -90,8 +92,8 @@ export default function RecipeForm({ recipe=defaults }) {
         const data = {
             title,
             slug,
-            uid,//
-            username,//
+            uid,
+            username,
             published: Boolean(Number(published)),
             content,
             thumbnail,
@@ -99,10 +101,12 @@ export default function RecipeForm({ recipe=defaults }) {
             portions: Number(portions),
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp(),
-            heartCount: 0,//
+            heartCount: 0,
             ingredients: _ingredients,
             macro: _macro
         }
+
+        console.log(data)
 
         await ref.set(data);
 

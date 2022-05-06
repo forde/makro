@@ -2,11 +2,11 @@ import { useContext, useState } from 'react'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 import ReactMarkdown from 'react-markdown'
-import Image from 'next/image'
 import IngredientMacro from '~/components/IngredientMacro'
 import { UserContext } from '~/lib/context'
 import { styled } from '@stitches/react'
 import RecipeMakro from '~/components/RecipeMakro'
+import { imagekitUrl } from '~/lib/helpers'
 
 export default function RecipeContent({ recipe }) {
 
@@ -20,7 +20,7 @@ export default function RecipeContent({ recipe }) {
         <div className="card mb-48 p-16">
 
             <div className="br-10 oh mb-16">
-                <Image src={recipe?.thumbnail} layout="intrinsic" width={760} height={570} sizes={'760px'} />
+                <img src={imagekitUrl(recipe?.thumbnail, 'tr=w-728')} />
             </div>
 
             <div className="p-16">
@@ -32,7 +32,7 @@ export default function RecipeContent({ recipe }) {
                     <MetaDetail><i>🥘 </i>{recipe?.category}</MetaDetail>
                     <MetaDetail><i>🥣</i>{recipe?.portions} </MetaDetail>
                     <MetaDetail><i>❤️‍ </i>{recipe?.heartCount}</MetaDetail>
-                    {username && <MetaDetail><i>⚙️ </i><EditLink recipe={recipe}/></MetaDetail>}
+                    {username && username === recipe.username && <MetaDetail><i>⚙️ </i><EditLink recipe={recipe}/></MetaDetail>}
                 </div>
 
                 <h2 className="mb-24 flex-center-y-row">Składniki <MetaDetail className="accent fw-400" style={{margin: '0 0 0 12px', cursor: 'pointer'}} onClick={() => setWithIngredientMacro(!withIngredientMacro)}>makro</MetaDetail></h2>

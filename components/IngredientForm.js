@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useContext } from 'react'
 
 import { Row, Col } from '~/components/grid'
 import Input from '~/components/Input'
 import Button from '~/components/Button'
 import { firestore } from '~/lib/firebase'
 import kebabCase from 'lodash.kebabcase'
+import { UserContext } from '~/lib/context'
 
 export default function IngredientForm ({ onSaved, ingredient }) {
+
+    const { username } = useContext(UserContext)
 
     const [ data, setData ] = useState(ingredient || {
         name: '',
         description: '',
         macro: { carbs: 0, energy: 0, fat: 0, protein: 0, sugar: 0 },
         macroIn: '100g',
-        macroInDesc: ''
+        macroInDesc: '',
+        username,
     })
 
     const set = (key, val) => {
@@ -21,6 +25,9 @@ export default function IngredientForm ({ onSaved, ingredient }) {
     }
 
     const submit = async () => {
+
+        if(username !== 'forde') return alert('Only admins can do that for now. Sorry...')
+
         const id = data.uid || kebabCase(data.name)
         await firestore.collection('ingredients').doc(id).set(data)
         onSaved({...data, uid: id})

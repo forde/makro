@@ -1,7 +1,7 @@
 import { styled } from '@stitches/react'
 import { percentOf } from '~/lib/helpers'
 
-export default function IngredientMacro({ ingredient }) {
+export default function IngredientMacro({ ingredient, className }) {
 
     if(!ingredient?.macro) return null
 
@@ -24,7 +24,7 @@ export default function IngredientMacro({ ingredient }) {
     }
 
     return(
-        <label>
+        <label className={className}>
             <Det>{valueInAmmount(energy)} Kcal</Det>
             <Det>|</Det>
             <Det>T: {valueInAmmount(fat)}g</Det>

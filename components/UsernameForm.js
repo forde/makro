@@ -65,7 +65,7 @@ export default function UsernameForm() {
                 setError('')
                 const record = await firestore.doc(`usernames/${username}`).get()
                 const exists = record.data() && record.data().uid !== user.uid
-                if(exists) setError('Username already taken')
+                if(exists) setError('Ta nazwa użytkownika jest już zajęta')
                 setIsValid(!exists)
                 setLoading(false)
             }
@@ -77,7 +77,7 @@ export default function UsernameForm() {
         <>
             <div className="container">
                 <div className="card mb-32">
-                    <label className="mb-8">Change your username</label>
+                    <label className="mb-8">Twoja nazwa użytkownika</label>
                     <div>
                         <Input
                             placeholder="username"

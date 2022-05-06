@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Head from 'next/head'
 import { FiEdit } from 'react-icons/fi'
 import { Row, Col } from '~/components/grid'
@@ -8,8 +8,11 @@ import Input from '~/components/Input'
 import IngredientForm from '~/components/IngredientForm'
 import { firestore } from '~/lib/firebase'
 import IngredientMacro from '~/components/IngredientMacro'
+import { UserContext } from '~/lib/context'
 
 export default function Ingredients() {
+
+    const { username } = useContext(UserContext)
 
     const [ formVisible, setFormVisible ] = useState(false)
     const [ ingredients, setIngredients ] = useState([])
@@ -54,15 +57,17 @@ export default function Ingredients() {
                     return(
                         <div key={ing.uid} className="card mb-24 p-24">
                             <h3 className="title mb-8 bold">{ing.name}</h3>
-                            <IngredientMacro ingredient={ing} />
-                            <FiEdit
-                                onClick={() => {
-                                    setEditedIngredient(ing)
-                                    setFormVisible(true)
-                                }}
-                                className="icon-m absolute center-y clickable"
-                                style={{right:'24px'}}
-                            />
+                            <IngredientMacro ingredient={ing} className="pr-48"/>
+                            {username === ing.username &&
+                                <FiEdit
+                                    onClick={() => {
+                                        setEditedIngredient(ing)
+                                        setFormVisible(true)
+                                    }}
+                                    className="icon-m absolute center-y clickable"
+                                    style={{right:'24px'}}
+                                />
+                            }
                         </div>
                     )
                 })}

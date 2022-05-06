@@ -33,7 +33,7 @@ export default function Profile({ user, recipes }) {
                     <Col width={[4,4,12]}>
                         <a className="card block flex-center" onClick={() => goTo(`/ingredients`)}>
                             <i className="icon-xxl mb-24">🧀</i>
-                            <strong>Skłądniki</strong>
+                            <strong>Składniki</strong>
                         </a>
                     </Col>
                     <Col width={[4,4,12]}>
