@@ -167,7 +167,7 @@ export default function RecipeForm({ recipe=defaults }) {
                             <Col width={[7, 7, 12]}>
                                 <div className="flex-center-y h-100">
                                     <div className="bold mb-8">{ing.name}</div>
-                                    <IngredientMacro ingredient={ing} ammount={ing.ammount} />
+                                    <IngredientMacro ingredient={ing} />
                                 </div>
                             </Col>
                             <Col width={[2, 2, 5]}>
@@ -175,7 +175,7 @@ export default function RecipeForm({ recipe=defaults }) {
                                     disabled={!ing.name}
                                     type="number"
                                     placeholder="Ilość"
-                                    suffix={ing?.macroIn?.replace(/\d/g,'')}
+                                    suffix={ing?.macroIn?.replace(/[\d\.]/g,'')}
                                     value={ing.ammount}
                                     onChange={val => setIngredientAmmount(val, ing.uid)}
                                 />
